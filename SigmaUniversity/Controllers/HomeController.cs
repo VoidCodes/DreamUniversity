@@ -102,18 +102,19 @@ namespace SigmaUniversity.Controllers
         }
 
         // GET: Logout
-        /*public ActionResult Logout()
+        public ActionResult Logout()
         {
+            Session.Clear();
             return RedirectToAction("Index");
-        }*/
+        }
 
         // POST: Logout
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult Logout()
         {
             Session.Abandon();
             return Json(new { status = "done" });
-        }
+        }*/
 
         // POST: Home/Create
         [HttpPost]
