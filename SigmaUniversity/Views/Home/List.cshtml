@@ -1,0 +1,107 @@
+﻿@model IEnumerable<SigmaUniversity.Models.College>
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Dream University</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0"></ul>
+            <ul class="nav navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Welcome User @Session["StaffID"]</a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a href="@Url.Action("Account", "Home")" class="dropdown-item">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a id="logoutlink" href="@Url.Action("Logout", "Home")" class="dropdown-item">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script type="text/javascript">
+
+$(function(){
+
+  $("#logoutLink").click(function(e){
+   e.preventDefault();
+   $.post("@Url.Action("Logout","Home")",function(res){
+      if(res.status==="done")
+      {
+         //close the window now.
+         window.close();
+      }
+   });
+  });
+
+});
+</script>
+
+<br />
+<h2>Manage Colleges</h2>
+
+<p>
+    <a href='@Url.Action("Create")' class="btn btn-success">Add New</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CollegeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeanFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeanLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeanEmail)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CollegeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeanFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeanLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeanEmail)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CollegeCode }, new { @class = "btn btn-warning" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.CollegeCode }, new { @class = "btn btn-info" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.CollegeCode }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+</table>
+<br />
+<div class="clearfix">
+    <div class="hint-text">Showing <b>2</b> out of <b>10</b> entries</div>
+    <br />
+    <ul class="pagination">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <li class="page-item"><a href="#" class="page-link">1</a></li>
+        <li class="page-item"><a href="#" class="page-link">2</a></li>
+        <li class="page-item active"><a href="#" class="page-link">3</a></li>
+        <li class="page-item"><a href="#" class="page-link">4</a></li>
+        <li class="page-item"><a href="#" class="page-link">5</a></li>
+        <li class="page-item"><a href="#" class="page-link">Next</a></li>
+    </ul>
+</div>
